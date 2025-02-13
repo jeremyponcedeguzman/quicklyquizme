@@ -8,10 +8,11 @@
     android:layout_marginVertical="10dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="8dp"
+    android:id="@+id/deckItem"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         >
 
 
