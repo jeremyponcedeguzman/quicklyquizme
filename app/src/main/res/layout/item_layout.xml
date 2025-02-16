@@ -18,14 +18,22 @@
 
         <TextView
             android:id="@+id/deckName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="307dp"
+            android:layout_height="27dp"
             android:layout_marginStart="24dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="1"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:freezesText="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="bruh"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
