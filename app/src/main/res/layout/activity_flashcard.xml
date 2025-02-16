@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="16dp"
+    android:id="@+id/main"
     android:background="#F5F5F5">
 
     <FrameLayout
