@@ -5,19 +5,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.RecyclerView
-import com.example.quicklyquizme.databinding.ActivityFlashCardBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.quicklyquizme.databinding.ActivityFlashcardBinding
 
 class FlashCardActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityFlashCardBinding
-    private lateinit var deckDatabase: DeckDatabase
-    private lateinit var dataList: ArrayList<dataClass>
-    private lateinit var addDeck: FloatingActionButton
-    private lateinit var deckList: MutableList<String>
+    private lateinit var binding: ActivityFlashcardBinding
+//    private lateinit var deckDatabase:DeckDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFlashCardBinding.inflate(layoutInflater)
+        binding = ActivityFlashcardBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -25,5 +20,7 @@ class FlashCardActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+//        deckDatabase=DeckDatabase(this)
+
     }
 }
