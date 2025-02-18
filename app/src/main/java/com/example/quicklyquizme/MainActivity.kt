@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var dataList: ArrayList<dataClass>
     private lateinit var addDeck:FloatingActionButton
-    private lateinit var deckList:MutableList<String>
+    private lateinit var deckList:MutableList<Long>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         if (deckAmount > 0){
             for (deck in 0..<deckAmount) {
-                deckList.add(deckDatabase.returnDeckName(deck+1))
+                deckList.add(deckDatabase.returnDeckID(deck))
             }
             dataList=arrayListOf<dataClass>()
             getData()
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     private fun getData()
     {
         for (i in deckList.indices){
-            val dataClass = dataClass(deckList[i])
+            val dataClass = dataClass(deckList[i],deckDatabase)
             dataList.add(dataClass)
         }
         recyclerView.adapter= adapterClass(dataList)
@@ -65,14 +65,13 @@ class MainActivity : AppCompatActivity() {
         with (builder){
             setTitle("Add Deck")
             setPositiveButton("Add"){dialog, which ->
-                val intent= Intent(this@MainActivity,MainActivity::class.java)
                 deckDatabase.insertDeck(nameInput.text.toString())
-                finish()
-                startActivity(intent)
+                recreate()
             }
             setView(dialogLayout)
             show()
         }
     }
+
 
 }
