@@ -2,16 +2,15 @@ package com.example.quicklyquizme
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.DatabaseUtils
 import android.database.DatabaseUtils.queryNumEntries
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class DeckDatabase (private val context: Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
+class DeckDatabase(private val context: Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
     override fun onCreate(db: SQLiteDatabase?) {
         val createTableQuery=("CREATE TABLE  $TABLE_NAME($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COLUMN_DECK_NAME TEXT)")
         db?.execSQL(createTableQuery)
-        val createTableQuery2=("CREATE TABLE $CARD_TABLE($CARD_ID INTEGER PRIMARY KEY AUTOINCREMENT,$CARD_FRONT TEXT, $CARD_BACK TEXT, $CARD_FK INTEGER, FOREIGN KEY ($CARD_FK) REFERENCES $TABLE_NAME($COLUMN_ID) ON DELETE CASCADE ON UPDATE CASCADE)")
+        val createTableQuery2=("CREATE TABLE $CARD_TABLE($CARD_ID INTEGER PRIMARY KEY AUTOINCREMENT,$CARD_FRONT TEXT, $CARD_BACK TEXT, $CARD_FK INTEGER)")
         db?.execSQL(createTableQuery2)
     }
     override fun onUpgrade(
@@ -51,23 +50,13 @@ class DeckDatabase (private val context: Context): SQLiteOpenHelper(context,DATA
         db.close()
         return rv
     }
-    fun returnDeckCardsAmount(deck_id: Int):Long{
+    fun returnDeckCardsAmount(deck_id: Long):Long{
         val db=readableDatabase
-        val rv=queryNumEntries(db, CARD_TABLE,"deck_id=$deck_id")
+        val rv=queryNumEntries(db, CARD_TABLE,"$CARD_FK=$deck_id")
         db.close()
         return rv
     }
-    fun returnFrontCards(deck_id: Long): Array<String> {
-        val db =readableDatabase
-        val cursor =db.query(CARD_TABLE,arrayOf(CARD_FRONT),"$CARD_FK=?",arrayOf(deck_id.toString()),null,null,null)
-        var rv=emptyArray<String>()
-        for (currentCard in 0..returnDeckCardsAmount(deck_id.toInt())){
-            cursor.moveToPosition(currentCard.toInt())
-            rv +=cursor.getString(0)
-        }
-        cursor.close()
-        return rv
-    }
+
     fun editCard(card_id:Long, cardFront: String,cardBack: String){
         val db =writableDatabase
         val values=ContentValues().apply {
@@ -76,31 +65,53 @@ class DeckDatabase (private val context: Context): SQLiteOpenHelper(context,DATA
         }
         db.update(CARD_TABLE,values,"$CARD_ID=?",arrayOf(card_id.toString()))
     }
-    fun returnBackCards(deck_id: Long): Array<String> {
+    fun returnFrontCard(card_id: Long): String {
         val db =readableDatabase
-        val selection="$CARD_FK=?"
+        val columns=arrayOf(CARD_FRONT)
+        val cursor=db.query(CARD_TABLE,
+            columns, "$CARD_ID=?",arrayOf(card_id.toString()),null,null,null)
+        var rv=""
+        if(cursor.moveToFirst()){
+        rv=cursor.getString(0)}
+        cursor.close()
+        db.close()
+        return rv
+    }
+    fun returnBackCard(card_id: Long): String {
+        val db =readableDatabase
         val columns=arrayOf(CARD_BACK)
         val cursor=db.query(CARD_TABLE,
-            columns,selection,arrayOf(deck_id.toString()),null,null,null)
-        var rv=emptyArray<String>()
-        for (currentCard in 0..returnDeckCardsAmount(deck_id.toInt())){
-            cursor.moveToPosition(currentCard.toInt())
-            rv +=cursor.getString(0)
+            columns, "$CARD_ID=?",arrayOf(card_id.toString()),null,null,null)
+        var rv=""
+        if(cursor.moveToFirst()){
+            rv=cursor.getString(0)}
+        cursor.close()
+        db.close()
+        return rv
+    }
+    fun returnDeckID(deckIndex: Long): Long {
+        val db=readableDatabase
+        var rv =0L
+        val cursor= db.query(TABLE_NAME, arrayOf(COLUMN_ID),null, null, null, null,null)
+        if (cursor.moveToPosition(deckIndex.toInt())){
+            rv =cursor.getString(0).toLong()
         }
         cursor.close()
         db.close()
         return rv
     }
-    fun returnCardIDs(deck_id:Long): Array<String>{
+    fun returnCardIDs(deck_id:Long):MutableList<Long>{
         val db =readableDatabase
         val selection="$CARD_FK=?"
         val columns=arrayOf(CARD_ID)
         val cursor=db.query(CARD_TABLE,
             columns,selection,arrayOf(deck_id.toString()),null,null,null)
-        var rv=emptyArray<String>()
-        for (currentCard in 0..returnDeckCardsAmount(deck_id.toInt())){
-            cursor.moveToPosition(currentCard.toInt())
-            rv +=cursor.getString(0)
+        val rv= mutableListOf<Long>()
+        if (cursor.moveToFirst()){
+            while(!cursor.isAfterLast){
+                rv.add(cursor.getLong(0))
+                cursor.moveToNext()
+            }
         }
         cursor.close()
         db.close()
@@ -120,30 +131,15 @@ class DeckDatabase (private val context: Context): SQLiteOpenHelper(context,DATA
         db.close()
         return rv
     }
-    fun deleteDeck(deckID:Long){
+    fun deleteDeck(deckID: Long){
         val db=writableDatabase
         db.delete(TABLE_NAME,"$COLUMN_ID=?", arrayOf(deckID.toString()))
-        for (IDnumber in 0..returnDeckAmount()){
-            if (IDnumber>deckID){
-                val newID=IDnumber-1
-                val values = ContentValues()
-                values.put(COLUMN_ID,newID)
-                db.update(TABLE_NAME, values,"$COLUMN_ID?",arrayOf((IDnumber).toString()))
-            }
-        }
+        db.delete(CARD_TABLE, "$CARD_FK=?", arrayOf(deckID.toString()))
         db.close()
     }
     fun deleteCard(card_id:Long){
         val db =writableDatabase
         db.delete(CARD_TABLE,"$CARD_ID=?",arrayOf(card_id.toString()))
-        for (IDnumber in 0..returnDeckAmount()){
-            if (IDnumber>card_id){
-                val newID=IDnumber-1
-                val values = ContentValues()
-                values.put(CARD_ID,newID)
-                db.update(CARD_TABLE, values,"$CARD_ID=?",arrayOf((IDnumber).toString()))
-            }
-        }
         db.close()
     }
     fun renameDeck(deckID: Long,newName:String){
