@@ -7,9 +7,6 @@
         android:id="@+id/viewDeck"
         android:title="View Deck"/>
     <item
-        android:id="@+id/editDeckName"
-        android:title="Rename Deck"/>
-    <item
         android:id="@+id/deleteDeck"
         android:title="Delete Deck"/>
 
