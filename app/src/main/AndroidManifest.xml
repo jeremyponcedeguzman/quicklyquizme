@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quicklyquizme"
         tools:targetApi="31">
+
+        <activity
+            android:name=".SessionEndActivity"
+            android:exported="false" />
         <activity
             android:name=".EditCardActivity"
             android:exported="false" />
@@ -25,9 +29,7 @@
         </activity>
         <activity
             android:name=".DeckViewerActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
