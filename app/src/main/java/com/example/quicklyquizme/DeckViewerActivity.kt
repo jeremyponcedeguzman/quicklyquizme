@@ -2,8 +2,8 @@ package com.example.quicklyquizme
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -22,8 +22,9 @@ class DeckViewerActivity:AppCompatActivity() {
     private lateinit var dataList: ArrayList<dataClass>
     private lateinit var cardList:MutableList<Long>
     private lateinit var deckTitle:TextView
-    private lateinit var renameButton:ImageButton
+    private lateinit var renameButton:Button
     private lateinit var addCard:FloatingActionButton
+    private lateinit var returnBtn:Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDeckviewerBinding.inflate(layoutInflater)
@@ -40,6 +41,10 @@ class DeckViewerActivity:AppCompatActivity() {
         cardList= mutableListOf()
         deckTitle=binding.deckNameTitle
         deckTitle.text=deckDatabase.returnDeckName(deckID)
+        returnBtn=binding.returnBtn
+        returnBtn.setOnClickListener{
+            finish()
+        }
         renameButton=binding.renameDeckButton
         renameButton.setOnClickListener{
             nameDeckDialog(deckID)
@@ -56,14 +61,14 @@ class DeckViewerActivity:AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         if (cardAmount > 0){
             cardList=deckDatabase.returnCardIDs(deckID)
-            dataList=arrayListOf<dataClass>()
+            dataList=arrayListOf()
             getData()
         }
     }
     private fun getData()
     {
         for (i in cardList.indices){
-            val dataClass = dataClass(cardList[i],deckDatabase)
+            val dataClass = dataClass(cardList[i],this)
             dataList.add(dataClass)
         }
         recyclerView.adapter= DeckViewerAdapterClass(dataList)
@@ -75,8 +80,7 @@ class DeckViewerActivity:AppCompatActivity() {
         val nameInput=dialogLayout.findViewById<EditText>(R.id.nameInput)
         with (builder){
             setTitle("Rename Deck")
-            setPositiveButton("Rename"){dialog, which ->
-                val intent= Intent(this@DeckViewerActivity,MainActivity::class.java)
+            setPositiveButton("Rename"){_, _ ->
                 deckDatabase.renameDeck(deckID,nameInput.text.toString())
                 recreate()
             }
