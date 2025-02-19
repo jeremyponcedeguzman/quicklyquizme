@@ -1,6 +1,5 @@
 package com.example.quicklyquizme
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
@@ -30,13 +29,13 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        addDeck = binding.floatingActionButton
+        addDeck = binding.addDeckButton
         deckDatabase = DeckDatabase(this)
         val deckAmount = deckDatabase.returnDeckAmount()
         deckList= mutableListOf()
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(false)
         if (deckAmount > 0){
             for (deck in 0..<deckAmount) {
                 deckList.add(deckDatabase.returnDeckID(deck))
@@ -47,12 +46,11 @@ class MainActivity : AppCompatActivity() {
         addDeck.setOnClickListener{
             nameDeckDialog()
         }
-
     }
     private fun getData()
     {
         for (i in deckList.indices){
-            val dataClass = dataClass(deckList[i],deckDatabase)
+            val dataClass = dataClass(deckList[i],this)
             dataList.add(dataClass)
         }
         recyclerView.adapter= adapterClass(dataList)
@@ -64,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         val nameInput=dialogLayout.findViewById<EditText>(R.id.nameInput)
         with (builder){
             setTitle("Add Deck")
-            setPositiveButton("Add"){dialog, which ->
+            setPositiveButton("Add"){_, _ ->
                 deckDatabase.insertDeck(nameInput.text.toString())
                 recreate()
             }
@@ -72,6 +70,4 @@ class MainActivity : AppCompatActivity() {
             show()
         }
     }
-
-
 }
