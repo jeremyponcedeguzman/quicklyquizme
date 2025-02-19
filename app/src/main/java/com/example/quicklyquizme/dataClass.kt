@@ -1,3 +1,5 @@
 package com.example.quicklyquizme
 
-data class dataClass(var currentID:Long, var deckDatabase: DeckDatabase)
+import android.content.Context
+
+data class dataClass(var currentID:Long, var mainActivityContext: Context)
