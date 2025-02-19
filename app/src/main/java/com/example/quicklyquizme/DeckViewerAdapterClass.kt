@@ -15,29 +15,24 @@ class DeckViewerAdapterClass(private val dataList: ArrayList<dataClass>): Recycl
         val rvFront: TextView=itemView.findViewById(R.id.cardFront)
         val rvBack: TextView=itemView.findViewById(R.id.cardBack)
         val rvCard:CardView=itemView.findViewById(R.id.cardItem)
-
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
         val itemView= LayoutInflater.from(parent.context).inflate(R.layout.deck_layout,parent,false)
         return ViewHolderClass(itemView)
     }
-
     override fun getItemCount(): Int {
         return dataList.size
     }
-
     override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
         val currentItem=dataList[position]
-        val deckDatabase=currentItem.deckDatabase
+        val deckDatabase=DeckDatabase(currentItem.mainActivityContext)
         holder.rvFront.text=deckDatabase.returnFrontCard(currentItem.currentID)
         holder.rvBack.text=deckDatabase.returnBackCard(currentItem.currentID)
         holder.rvCard.setOnClickListener{
             val intent=Intent(it.context,EditCardActivity::class.java)
             intent.putExtra("cardID",currentItem.currentID)
             it.context.startActivity(intent)
-
         }
-
         }
     }
 
