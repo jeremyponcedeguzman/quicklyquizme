@@ -11,7 +11,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/topBar"
-        android:layout_width="match_parent"
+        android:layout_width="388dp"
         android:layout_height="64dp"
         app:cardBackgroundColor="#102165"
         app:cardCornerRadius="12dp"
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Deck Name"
+                android:text="Quickly Quiz Me"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -52,7 +52,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="match_parent"
+        android:layout_width="388dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         app:cardBackgroundColor="#BBB09F"
@@ -68,6 +68,51 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="8dp" />
+
+        <LinearLayout
+            android:id="@+id/sideMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/nav_header"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_gravity="bottom"
+                android:background="@color/blue"
+                android:orientation="vertical"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark">
+                <!--                        logo goes here-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quickly Quiz Me"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/aboutApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="About The App"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/aboutDevs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="About The Developers"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
 
     </androidx.cardview.widget.CardView>
 
