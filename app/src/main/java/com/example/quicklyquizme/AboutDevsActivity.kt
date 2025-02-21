@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.quicklyquizme.databinding.ActivityAboutDevsBinding
-import kotlin.contracts.Returns
 
 class AboutDevsActivity : AppCompatActivity() {
     private lateinit var binding:ActivityAboutDevsBinding
