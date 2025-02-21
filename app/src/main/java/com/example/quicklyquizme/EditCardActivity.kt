@@ -31,6 +31,7 @@ class EditCardActivity : AppCompatActivity() {
         deckDatabase=DeckDatabase(this)
         val cardID=intent.extras?.getLong("cardID")
         val intent= Intent(this,DeckViewerActivity::class.java)
+        intent.putExtra("deckID",deckDatabase.returnCardFK(cardID!!))
         frontCard=binding.editFront
         backCard=binding.editBack
         editCard=binding.saveBtn
@@ -48,7 +49,6 @@ class EditCardActivity : AppCompatActivity() {
             finish()
         }
         editCard.setOnClickListener{
-
             deckDatabase.editCard(cardID,frontCard.text.toString(),backCard.text.toString())
             finish()
             startActivity(intent)
