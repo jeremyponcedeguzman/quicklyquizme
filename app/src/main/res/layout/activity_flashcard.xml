@@ -95,20 +95,20 @@
         <Button
             android:id="@+id/wrongBtn"
             android:layout_width="130dp"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:backgroundTint="@color/blue"
-            android:text="Answered Wrong"
+            android:text="Incorrect"
             android:visibility="gone"
             android:textSize="14sp" />
 
         <Button
             android:id="@+id/correctBtn"
             android:layout_width="130dp"
-            android:visibility="gone"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:backgroundTint="@color/blue"
-            android:text="Answered Correctly"
+            android:text="Correct"
             android:textColorLink="#ff102165"
+            android:visibility="gone"
             android:textSize="14sp" />
     </LinearLayout>
 
