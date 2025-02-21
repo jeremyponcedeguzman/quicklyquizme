@@ -92,7 +92,7 @@ class MultipleChoiceActivity : AppCompatActivity() {
         var cardsToAdd=3
         while(cardsToAdd!=0) {
             val cardToAdd=deckDatabase.returnBackCard((cardIDs).random())
-            if (0!=cardToAdd.compareTo(currentChoices[0])) {
+            if (0!=cardToAdd.compareTo(currentChoices[0]) && !currentChoices.contains(cardToAdd)) {
                 currentChoices.addLast(cardToAdd)
                 cardsToAdd--
             }
