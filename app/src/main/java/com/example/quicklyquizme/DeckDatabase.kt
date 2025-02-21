@@ -100,6 +100,18 @@ class DeckDatabase(private val context: Context): SQLiteOpenHelper(context,DATAB
         db.close()
         return rv
     }
+    fun returnCardFK(card_id: Long):Long{
+        val db= readableDatabase
+        val selection="$CARD_ID=?"
+        val columns=arrayOf(CARD_FK)
+        var rv=0L
+        val cursor=db.query(CARD_TABLE,
+            columns,selection,arrayOf(card_id.toString()),null,null,null)
+        if (cursor.moveToFirst()){
+            rv=cursor.getLong(0)
+        }
+        return rv
+    }
     fun returnCardIDs(deck_id:Long):MutableList<Long>{
         val db =readableDatabase
         val selection="$CARD_FK=?"
