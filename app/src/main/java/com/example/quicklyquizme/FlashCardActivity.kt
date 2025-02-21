@@ -63,7 +63,7 @@ class FlashCardActivity : AppCompatActivity() {
             else{
                 flashCardText.text= frontCards[currentCard]
                 correctBtn.isGone=true
-                wrongBtn.isGone=false
+                wrongBtn.isGone=true
             }
         }
         wrongBtn.setOnClickListener{
@@ -75,8 +75,8 @@ class FlashCardActivity : AppCompatActivity() {
             }
             else{
                 flashCardText.text= frontCards[currentCard]
-                correctBtn.isGone=false
-                wrongBtn.isGone=false
+                correctBtn.isGone=true
+                wrongBtn.isGone=true
             }
         }
 
