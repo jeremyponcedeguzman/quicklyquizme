@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.example.quicklyquizme.databinding.ActivityFlashcardBinding
 
@@ -34,9 +35,8 @@ class FlashCardActivity : AppCompatActivity() {
         var currentCard=0
         val cardsAmount= frontCards?.size
         var correctAnswers=0
-        val intent= Intent(this,SessionEndActivity::class.java)
         deckTitle=binding.title
-        deckTitle.text=intent.extras?.getString("deckName")
+        deckTitle.text=intent.extras!!.getString("deckName")
         flashCardText=binding.flashcard
         flashCardText.text= frontCards!!.get(currentCard)
         correctBtn=binding.correctBtn
@@ -51,6 +51,7 @@ class FlashCardActivity : AppCompatActivity() {
             correctBtn.isVisible=true
             wrongBtn.isVisible=true
         }
+        val intent= Intent(this,SessionEndActivity::class.java)
         correctBtn.setOnClickListener{
             currentCard++
             correctAnswers++
@@ -61,8 +62,8 @@ class FlashCardActivity : AppCompatActivity() {
             }
             else{
                 flashCardText.text= frontCards[currentCard]
-                correctBtn.isVisible=false
-                wrongBtn.isVisible=false
+                correctBtn.isGone=true
+                wrongBtn.isGone=false
             }
         }
         wrongBtn.setOnClickListener{
@@ -74,8 +75,8 @@ class FlashCardActivity : AppCompatActivity() {
             }
             else{
                 flashCardText.text= frontCards[currentCard]
-                correctBtn.isVisible=false
-                wrongBtn.isVisible=false
+                correctBtn.isGone=false
+                wrongBtn.isGone=false
             }
         }
 
