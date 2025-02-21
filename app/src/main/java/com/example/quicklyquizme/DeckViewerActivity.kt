@@ -43,6 +43,8 @@ class DeckViewerActivity:AppCompatActivity() {
         deckTitle.text=deckDatabase.returnDeckName(deckID)
         returnBtn=binding.returnBtn
         returnBtn.setOnClickListener{
+            val intent=Intent(this,MainActivity::class.java)
+            startActivity(intent)
             finish()
         }
         renameButton=binding.renameDeckButton
