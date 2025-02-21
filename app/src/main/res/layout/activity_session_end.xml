@@ -11,7 +11,7 @@
     android:background="#F5F5F5">
     <androidx.cardview.widget.CardView
         android:id="@+id/topBar"
-        android:layout_width="match_parent"
+        android:layout_width="388dp"
         android:layout_height="64dp"
         android:layout_marginBottom="16dp"
         app:cardBackgroundColor="#102165"
@@ -49,16 +49,16 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="388dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         app:cardBackgroundColor="#BBB09F"
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/score"

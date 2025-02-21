@@ -81,19 +81,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_gravity="bottom"
-                android:background="@color/blue"
+                android:background="@color/iconBlue"
                 android:orientation="vertical"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark">
-                <!--                        logo goes here-->
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quickly Quiz Me"
-                    android:textSize="15sp" />
+                    android:src="@drawable/logo"/>
             </LinearLayout>
 
             <Button

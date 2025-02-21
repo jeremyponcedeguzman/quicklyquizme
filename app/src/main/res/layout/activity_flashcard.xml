@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/topBar"
-        android:layout_width="match_parent"
+        android:layout_width="388dp"
         android:layout_height="64dp"
         android:layout_marginBottom="16dp"
         app:cardBackgroundColor="#102165"
@@ -52,7 +52,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="388dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:cardBackgroundColor="#BBB09F"
@@ -71,7 +71,7 @@
             android:padding="20dp"
             android:text="Front Side Text"
             android:textColor="#222222"
-            android:textSize="18sp" />
+            android:textSize="40sp" />
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
