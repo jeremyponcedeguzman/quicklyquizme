@@ -40,9 +40,12 @@ class adapterClass(private val dataList: ArrayList<dataClass>): RecyclerView.Ada
                 frontCardsList.add(deckDatabase.returnFrontCard(card))
                 backCardsList.add(deckDatabase.returnBackCard(card))
             }
+            val deckName=deckDatabase.returnDeckName(currentItem.currentID)
             intent.putExtra("frontCards",frontCardsList as ArrayList)
             intent.putExtra("backCards",backCardsList as ArrayList)
+            intent.putExtra("deckName",deckName)
             it.context.startActivity(intent)
+
 
         }
         holder.rvButton.setOnClickListener{
@@ -51,7 +54,14 @@ class adapterClass(private val dataList: ArrayList<dataClass>): RecyclerView.Ada
             popup.setOnMenuItemClickListener{ menuItem ->
                 when(menuItem.itemId){
                     R.id.choiceMode->{
-                        Toast.makeText(it.context,"Choice",Toast.LENGTH_LONG).show()
+                        if (deckDatabase.returnDeckCardsAmount(currentItem.currentID)<4){
+                            Toast.makeText(it.context,"Not Enough Cards for Mode",Toast.LENGTH_LONG).show()
+                        }
+                        else{
+                            val intent=Intent(it.context, MultipleChoiceActivity::class.java)
+                            intent.putExtra("deckID",currentItem.currentID)
+                            it.context.startActivity(intent)
+                        }
                         true
                     }
                     R.id.viewDeck->{
