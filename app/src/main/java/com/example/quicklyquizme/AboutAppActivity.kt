@@ -1,20 +1,29 @@
 package com.example.quicklyquizme
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.quicklyquizme.databinding.ActivityAboutAppBinding
 
 class AboutAppActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityAboutAppBinding
+    private lateinit var returnBtn:Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding=ActivityAboutAppBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_about_app)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        returnBtn=binding.backBtn
+        returnBtn.setOnClickListener {
+            finish()
         }
     }
 }
