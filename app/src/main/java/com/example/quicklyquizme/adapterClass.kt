@@ -31,22 +31,25 @@ class adapterClass(private val dataList: ArrayList<dataClass>): RecyclerView.Ada
         holder.rvTitle.text=deckDatabase.returnDeckName(currentItem.currentID)
         holder.rvTitle.isSelected=true
         holder.rvCard.setOnClickListener{
-            val intent=Intent(it.context,FlashCardActivity::class.java)
-            val frontCardsList= mutableListOf<String>()
-            val backCardsList= mutableListOf<String>()
-            val cardList=deckDatabase.returnCardIDs(currentItem.currentID)
-            cardList.shuffle()
-            for (card in cardList){
-                frontCardsList.add(deckDatabase.returnFrontCard(card))
-                backCardsList.add(deckDatabase.returnBackCard(card))
+            if (deckDatabase.returnDeckCardsAmount(currentItem.currentID)==0L) {
+                Toast.makeText(it.context, "Not Enough Cards \n View Deck and add a card ", Toast.LENGTH_LONG).show()
             }
-            val deckName=deckDatabase.returnDeckName(currentItem.currentID)
-            intent.putExtra("frontCards",frontCardsList as ArrayList)
-            intent.putExtra("backCards",backCardsList as ArrayList)
-            intent.putExtra("deckName",deckName)
-            it.context.startActivity(intent)
-
-
+            else {
+                val intent = Intent(it.context, FlashCardActivity::class.java)
+                val frontCardsList = mutableListOf<String>()
+                val backCardsList = mutableListOf<String>()
+                val cardList = deckDatabase.returnCardIDs(currentItem.currentID)
+                cardList.shuffle()
+                for (card in cardList) {
+                    frontCardsList.add(deckDatabase.returnFrontCard(card))
+                    backCardsList.add(deckDatabase.returnBackCard(card))
+                }
+                val deckName = deckDatabase.returnDeckName(currentItem.currentID)
+                intent.putExtra("frontCards", frontCardsList as ArrayList)
+                intent.putExtra("backCards", backCardsList as ArrayList)
+                intent.putExtra("deckName", deckName)
+                it.context.startActivity(intent)
+            }
         }
         holder.rvButton.setOnClickListener{
             val popup=PopupMenu(it.context,holder.rvButton)
