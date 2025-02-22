@@ -78,7 +78,7 @@ class DeckViewerActivity:AppCompatActivity() {
     private fun nameDeckDialog(deckID:Long){
         val builder= AlertDialog.Builder(this)
         val inflater=this.layoutInflater
-        val dialogLayout=inflater.inflate(R.layout.add_deck_layout,binding.root)
+        val dialogLayout=inflater.inflate(R.layout.add_deck_layout,null)
         val nameInput=dialogLayout.findViewById<EditText>(R.id.nameInput)
         with (builder){
             setTitle("Rename Deck")
