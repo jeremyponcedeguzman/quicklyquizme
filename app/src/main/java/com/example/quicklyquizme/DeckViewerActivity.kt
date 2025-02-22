@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -65,6 +66,11 @@ class DeckViewerActivity:AppCompatActivity() {
             cardList=deckDatabase.returnCardIDs(deckID)
             dataList=arrayListOf()
             getData()
+        }
+        val intent=Intent(this,MainActivity::class.java)
+        onBackPressedDispatcher.addCallback {
+            startActivity(intent)
+            finish()
         }
     }
     private fun getData()
